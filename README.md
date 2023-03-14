@@ -1,2 +1,16 @@
 # PriorityQueueSkyline
 Checking the Skyline problem using modified priority queues
+
+The assignment was done in the following way:
+
+The first part of this assignment is to implement a class that we will call a "Modified Priority Queue," (MPQ) that will be useful in computing the skyline of a set of buildings. The MPQ is a simple variation on the priority queue class that we used heaps to implement. The only difference is that the items that are maintained by a MPQ object internally have two components (say value and label), as opposed to just a value that is used to compare the items in a priority queue. The first component is again a value with which the items can be compared to each other just as in a priority queue. The other, label, is an identifying number that identifies a specific item in the MPQ. Thus for instance you can insert an item and either access or delete an item with the maximum value component or with a specific identifying number.
+
+You will use heaps to implement MPQs. Let us assume that you call the array for the heap as Heap. The tricky part is to maintain a link between a value and a label assigned to it. For this, it will be convenient to have a parallel private array of integers, called Location, whose ith entry contains the position in the heap of the item having label i. Thus you can locate a heap entry with a given label in O(1) time, instead of searching for it in the heap in O(N) time. At all times, for the valid entries in the heap, Heap[Location[i]].label equals i, and Location[Heap[j].label] equals j. When you move an element around in the heap, you should be careful to change the corresponding value in Location to contain the new position of the element.
+
+Once you have implemented the MPQ Class, you will write the code that computes the skyline of a city. We suggest the following algorithm outline but certainly you are welcome to come up with your own, but you should employ the MPQ class.
+
+    1. Read in the descriptions of all of the buildings from a file called input.txt. The format will be as given earlier.
+
+    2. Once you have read all the data in, put all of the x-coordinates of the left and right sides in a separate array (of size twice the number of buildings) together, and sort them into ascending order of the x-coordinates using some fast sorting algorithm (you can use heapsort, but you will have to modify it a bit). With each x- coordinate, also keep the identity of the corresponding building in the same array (e.g., the sequence number of the building as you read them in), and which side (left or right) it belongs to.
+
+    3. Make a left-to-right sweep across the city by examining the x-coordinates in the sorted list in ascending order. During the course of the sweep, the MPQ is used to keep track of which buildings span the current x coordinate and which of the buildings has the maximum height. You will have to figure out how to use the MPQ class for this. After each insertion and deletion, check to see if the maximum height of the buildings in the MPQ has changed. If so, output the x- coordinate that has just been examined, followed by the new current maximum height to the standard output.
